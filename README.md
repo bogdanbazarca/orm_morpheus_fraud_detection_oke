@@ -1,4 +1,4 @@
-# orm_stack_oke_tritonllm_llama3.2_models
+# orm_stack_morpheus_fraud_detection_oke
 
 ## Getting started
 
@@ -84,14 +84,14 @@ module "nginx" {
 
 ## What is being deployed
 
-This code deployes [**NVIDIA_Triton_LLM_with_llama2-7b**](https://github.com/fraud-detection-app/tutorials/blob/main/Popular_Models_Guide/Llama2/trtllm_guide.md) on an OKE GPU A10 shape worker node
+This code deployes [**NVIDIA_Morpheus**](https://github.com/nv-morpheus/morpheus-experimental/tree/branch-24.10/ai-credit-fraud-workflow) on an OKE GPU A10 shape worker node
 
 - The helm deployment uses a local helm chart (in folder oci)
 - The code is copying the helm chart folder to operator and deploy it from there
 - Under _helm-values-templates_ the file _value_triton_ override the helm chart values
-- The triton server runs on ports 8000, 8001 and 8002 and exposes them on worker node which then uses a Load balancer to get external access
-- To run triton server only on worker nodes with GPU it uses a _resource_type_ (resource key: nvidia.com/gpu) which is set by the code that deploys the OKE ()
-- The triton inference will be available to query via external Load Balancer IP in this manner: ```curl -X POST http://<External_LB_IP>:8000/v2/models/ensemble/generate -d   '{"text_input": "What is machine learning?", "max_tokens": 20, "bad_words": "", "stop_words": ""}'```
+- The Jupyter notebook uses port 8888 exposes it on the worker node which then uses a Load balancer to get external access
+- To run Jupyter only on worker nodes with GPU it uses a _resource_type_ (resource key: nvidia.com/gpu) which is set by the code that deploys the OKE ()
+- The Jupyter notebook may be accesed from external using the following simple steps from the operator execute the simplified command: ```k get all``` to see all the resources created. Select the Public IP of the Load Balancer and add to it the content of the Jupyter token like this: http://<Publib_IP_of_Load_Balancer>:token. To collect the value of the token use the following steps: ```k logs fraud-detection-app-...``` and look for a value like this: http://hostname:8888/tree?token=97d9b75af87c2c754d6d4c0f922bb262cb3d49b44287d8e6
 
 
 ## How to deploy?
