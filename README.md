@@ -93,6 +93,41 @@ This code deployes [**NVIDIA_Morpheus**](https://github.com/nv-morpheus/morpheus
 - To run Jupyter only on worker nodes with GPU it uses a _resource_type_ (resource key: nvidia.com/gpu) which is set by the code that deploys the OKE ()
 - The Jupyter notebook may be accesed from external using the following simple steps from the operator execute the simplified command: ```k get all``` to see all the resources created. Select the Public IP of the Load Balancer and add to it the content of the Jupyter token like this: http://<Publib_IP_of_Load_Balancer>:token. To collect the value of the token use the following steps: ```k logs fraud-detection-app-...``` and look for a value like this: http://hostname:8888/tree?token=97d9b75af87c2c754d6d4c0f922bb262cb3d49b44287d8e6
 
+## Fraud Detection Notebooks details
+### The Jupyter notebooks contains in the notebook folder the following fraud detection models:
+Tabformer and Sparkov:
+https://github.com/nv-morpheus/morpheus-experimental/tree/branch-24.10/ai-credit-fraud-workflow
+## Fraud Detection Models
+Notebooks need to be executed in the correct order.
+For a particular dataset, the preprocessing notebook must be executed before the training notebook. Once the training notebook produces models, the inference notebook can be executed to run inference on unseen data.
+
+You can go from Jupyter to the following location: /morpheus-experimental/ai-credit-fraud-workflow/notebooks/ and then you can execute the following labs (Please select Kernel -> Change Kernel -> Fraud Conda Environment for all those):
+
+### TabFormer steps and notebooks:
+To execute the labs select Kernel -> Restart Kernel and Run All Cells
+1. preprocess_Tabformer.ipynb -> This will produce a number of files under ./data/TabFormer/gnn and ./data/TabFormer/xgb. It will also save data preprocessor pipeline preprocessor.pkl and a few variables in a json file variables.json under ./data/TabFormer directory.
+
+2. train_gnn_based_xgboost.ipynb -> This will produce two files for the GNN-based XGBoost model under ./data/TabFormer/models directory. Note: Please be aware to set cell 2 with this value: DATASET = TABFORMER
+
+3. inference_gnn_based_xgboost_TabFormer.ipynb -> This is used for Inference. Note: Please be aware to set cell 2 with this value: dataset_base_path = '../data/TabFormer/' and keep the same TabFormer sekection uncommented in cell 13.
+
+Optional: Pure XGBoost
+Two additional notebooks are provided to build a pure XGBoost model (without GNN) and perform inference using that model.
+1. train_xgboost.ipynb -> This will produce a XGBoost model under ./data/TabFormer/models directory. Note: Please be aware to set cell 2 with this value: DATASET = TABFORMER
+2. inference_xgboost_TabFormer.ipynb -> This is used for inference
+
+### Spakov steps and notebooks:
+To execute the labs select Kernel -> Restart Kernel and Run All Cells
+
+1. preprocess_Sparkov.ipynb -> This will produce a number of files under ./data/Sparkov/gnn and ./data/Sparkov/xgb. It will also save data preprocessor pipeline preprocessor.pkl and a few variables in a json file variables.json under ./data/Sparkov directory.
+
+2. train_gnn_based_xgboost.ipynb -> This will produce two files for the GNN-based XGBoost model under ./data/Sparkov/models directory. Note: Please be aware to set cell 2 with this value: DATASET = SPARKOV
+
+Optional: Pure XGBoost
+Two additional notebooks are provided to build a pure XGBoost model (without GNN) and perform inference using that model.
+1. train_xgboost.ipynb -> This will produce a XGBoost model under ./data/Sparkov/models directory. Note: Please be aware to set cell 2 with this value: DATASET = SPARKOV
+2. inference_xgboost_Sparkov.ipynb -> This is used for inference. Note: Please be aware to set cell 2 with this value: dataset_base_path = '../data/Sparkov/' and keep the same Sparkov content selection uncommented in cell 13.
+
 
 ## How to deploy?
 
