@@ -89,7 +89,7 @@ This code deployes [**NVIDIA_Morpheus**](https://github.com/nv-morpheus/morpheus
 - The helm deployment uses a local helm chart (in folder oci)
 - The code is copying the helm chart folder to operator and deploy it from there
 - Under _helm-values-templates_ the file _value_triton_ override the helm chart values
-- The Jupyter notebook uses port 8888 exposes it on the worker node which then uses a Load balancer to get external access
+- The Jupyter notebook uses port 8888 and exposes it on the worker node which then uses the Load balancer to offer the external access
 - To run Jupyter only on worker nodes with GPU it uses a _resource_type_ (resource key: nvidia.com/gpu) which is set by the code that deploys the OKE ()
 - The Jupyter notebook may be accesed from external using the following simple steps from the operator execute the simplified command: ```k get all``` to see all the resources created. Select the Public IP of the Load Balancer and add to it the content of the Jupyter token like this: http://<Publib_IP_of_Load_Balancer>:token. To collect the value of the token use the following steps: ```k logs fraud-detection-app-...``` and look for a value like this: http://hostname:8888/tree?token=97d9b75af87c2c754d6d4c0f922bb262cb3d49b44287d8e6
 
