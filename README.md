@@ -95,8 +95,10 @@ This code deployes [**NVIDIA_Morpheus**](https://github.com/nv-morpheus/morpheus
 
 ## Fraud Detection Notebooks details
 ### The Jupyter notebooks contains in the notebook folder the following fraud detection models:
+
 Tabformer and Sparkov:
-https://github.com/nv-morpheus/morpheus-experimental/tree/branch-24.10/ai-credit-fraud-workflow
+https://github.com/nv-morpheus/morpheus-experimental/tree/branch-24.10/ai-credit-fraud-workflow/notebooks
+
 ## Fraud Detection Models
 Notebooks need to be executed in the correct order.
 For a particular dataset, the preprocessing notebook must be executed before the training notebook. Once the training notebook produces models, the inference notebook can be executed to run inference on unseen data.
